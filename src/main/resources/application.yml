@@ -1,8 +1,15 @@
 spring:
   kafka:
     producer:
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      bootstrapServers: 172.29.108.21:9092
-      topic: topic.events
+      bootstrapServers: "[::1]:9092"
+      topic: topic.raw
+      topicOutput: topic.events
     consumer:
-      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      bootstrapServers: "[::1]:9092"
+      topic: topic.raw
+      groupid: spring-kafka-consumer
+  data:
+    cassandra:
+        keyspace-name: enrichbase
+        local-datacenter: datacenter1
+    port: 9042

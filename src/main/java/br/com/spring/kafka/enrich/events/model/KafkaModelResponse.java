@@ -8,5 +8,9 @@ public class KafkaModelResponse {
 
     protected String dataProcessamento;
 
-    protected String type;
+    protected String cpf;
+
+    protected String rg;
+
+    protected String sexo;
 }

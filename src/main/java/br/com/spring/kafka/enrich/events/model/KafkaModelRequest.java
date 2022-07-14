@@ -7,7 +7,4 @@ public class KafkaModelRequest {
 
     protected String nome;
 
-    protected String type;
-
-
 }

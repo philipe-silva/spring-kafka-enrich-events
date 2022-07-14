@@ -14,13 +14,12 @@ import java.util.Map;
 
 @EnableKafka
 @Configuration
-public class ConfigKafka {
+public class KafkaProducerConfig {
 
     @Value("${spring.kafka.producer.bootstrapServers}")
     protected String bootstrapServers;
 
-    @Value("${spring.kafka.producer.topic}")
-    protected String topic;
+
 
     protected KafkaTemplate<String,String> kafkaTemplate;
 
@@ -46,7 +45,7 @@ public class ConfigKafka {
 
     }
 
-    public void sendMessage(String msg){
+    public void sendMessage(String msg,String topic){
         kafkaTemplate = initTemplate(kafkaTemplate);
 
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic,msg);

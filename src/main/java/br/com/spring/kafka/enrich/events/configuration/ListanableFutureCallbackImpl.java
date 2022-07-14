@@ -7,7 +7,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 public class ListanableFutureCallbackImpl implements ListenableFutureCallback<SendResult<String,String>> {
 
     @Override
-    public void onFailure(Throwable throwable) {
+    public void onFailure(Throwable throwable)   {
         throwable.printStackTrace();
         log.error("Erro ao Enviar mensagem: {}",throwable.getMessage());
     }
