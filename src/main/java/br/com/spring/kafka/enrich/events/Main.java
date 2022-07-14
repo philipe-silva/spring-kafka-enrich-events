@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
@@ -19,33 +21,12 @@ import org.springframework.util.backoff.FixedBackOff;
 @Slf4j
 public class Main {
 
+
+
     public static void main(String... args) {
         SpringApplication.run(Main.class, args);
     }
 
-    @Bean
-    public SeekToCurrentErrorHandler errorHandler(KafkaOperations<Object, Object> template) {
-        return new SeekToCurrentErrorHandler(
-                new DeadLetterPublishingRecoverer(template), new FixedBackOff(1000L, 2));
-    }
-
-    @Bean
-    public RecordMessageConverter converter() {
-        return new JsonMessageConverter();
-    }
 
 
-    @Bean
-    public NewTopic events() {
-        return new NewTopic("topic.events", 1, (short) 1);
-    }
-
-    @Bean
-    @Profile("default") // Don't run from test(s)
-    public ApplicationRunner runner() {
-        return args -> {
-            System.out.println("Hit Enter to terminate...");
-            System.in.read();
-        };
-    }
 }
