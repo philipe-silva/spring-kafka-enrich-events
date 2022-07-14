@@ -2,5 +2,7 @@ spring:
   kafka:
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bootstrapServers: 172.29.108.21:9092
+      topic: topic.events
     consumer:
       value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer

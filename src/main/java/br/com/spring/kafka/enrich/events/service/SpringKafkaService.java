@@ -1,5 +1,6 @@
 package br.com.spring.kafka.enrich.events.service;
 
+import br.com.spring.kafka.enrich.events.configuration.ConfigKafka;
 import br.com.spring.kafka.enrich.events.model.KafkaModelRequest;
 import br.com.spring.kafka.enrich.events.model.KafkaModelResponse;
 import com.google.gson.Gson;
@@ -17,7 +18,7 @@ import java.util.Calendar;
 public class SpringKafkaService {
 
     @Autowired
-    protected KafkaTemplate<String, String> template;
+    protected ConfigKafka configKafka;
 
     public String sendEventToKafka(String event){
         log.info("Evento: {}",event);
@@ -41,7 +42,7 @@ public class SpringKafkaService {
             kafkaModelResponse.setDataProcessamento(dateNow());
             kafkaModelResponse.setType(kafkaModelRequest.getType());
             responseString = gson.toJson(kafkaModelResponse);
-            template.send("topic.events",responseString);
+            configKafka.sendMessage(responseString);
             returnValue = "OK";
         }
 
