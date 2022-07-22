@@ -20,6 +20,7 @@ public class SendRawEventsKafkaService {
     protected String topic;
 
     public String sendEventsToKafka(String event){
+        try {
         log.info("Evento: {} ",event);
         GsonBuilder builder = new GsonBuilder().serializeNulls();
 
@@ -28,7 +29,7 @@ public class SendRawEventsKafkaService {
         KafkaModelRequest kafkaModelRequest = gson.fromJson(event, KafkaModelRequest.class);
 
         String jsonFormatted = gson.toJson(kafkaModelRequest);
-        try {
+
             kafkaProducerConfig.sendMessage(jsonFormatted, topic);
 
         }catch (Exception e){
